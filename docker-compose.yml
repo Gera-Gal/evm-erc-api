@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  bd-node-api:
+    build: .
+    container_name: smart-contracts-api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      BLOCKCHAIN_RPC_URL: http://192.168.0.5:8545
+      ERC20_ADDRESS: 0xB9c483663B37EeC2b99a58184f2B19Cc478c1F8F
+      ERC721_ADDRESS: 0x5E1f1bB5f8bfeB4c40Be8B219264dDA0749D82A7
+      ERC1155_ADDRESS: 0x4268e8d16b7d5255059c02F0C29b9C155582BB1E
+
