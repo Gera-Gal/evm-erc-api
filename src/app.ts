@@ -10,6 +10,12 @@ import { createERC721Router } from './routes/erc721.router';
 import { erc721ABI } from './models/erc721';
 import { createERC1155Router } from './routes/erc1155.router';
 import { erc1155ABI } from './models/erc1155';
+import { createGreenMultiRouter } from './routes/green-multi.router'; 
+import { greenMultiABI } from './models/green-multi'; 
+import { createStorageRouter } from './routes/storage.router';
+import { storageV1ABI } from './models/storage-v1';
+import { storageV2ABI } from './models/storage-v2';
+import { storageV3ABI } from './models/storage-v3';
 
 dotenv.config();
 
@@ -36,11 +42,15 @@ class Server {
         let ERC20_ADDRESS = process.env.ERC20_ADDRESS;
         let ERC721_ADDRESS = process.env.ERC721_ADDRESS;
         let ERC1155_ADDRESS = process.env.ERC1155_ADDRESS;
+        let STORAGE_ADDRESS = process.env.STORAGE_ADDRESS;
+        let GREENMULTI_ADDRESS = process.env.GREENMULTI_ADDRESS;
         console.log('RPC URL: ', BLOCKCHAIN_RPC_URL);
 
         this.app.use('/erc20', createERC20Router(erc20ABI, BLOCKCHAIN_RPC_URL, ERC20_ADDRESS));
         this.app.use('/erc721', createERC721Router(erc721ABI, BLOCKCHAIN_RPC_URL, ERC721_ADDRESS));
         this.app.use('/erc1155', createERC1155Router(erc1155ABI, BLOCKCHAIN_RPC_URL, ERC1155_ADDRESS));
+        this.app.use('/storage', createStorageRouter(storageV3ABI, BLOCKCHAIN_RPC_URL, STORAGE_ADDRESS));
+        this.app.use('/green', createGreenMultiRouter(greenMultiABI, BLOCKCHAIN_RPC_URL, GREENMULTI_ADDRESS));
         this.app.use('/transaction', createTransactionRouter(BLOCKCHAIN_RPC_URL));
 
         // Manejador de errores
